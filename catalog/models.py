@@ -22,7 +22,8 @@ class Language(models.Model):
     Model representing the language a book is naturally written in
     """
 
-    name = models.CharField(max_length=50, help_text="Enter the book's natural language, e.g. English, French, etc.")
+    name = models.CharField(max_length=50, help_text="Enter the book's natural language,\
+                            e.g. English, French, etc.")
 
     def __str__(self):
         return self.name
@@ -42,15 +43,24 @@ class Book(models.Model):
     # yet in the file.
 
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
-
+    isbn_html_snippet = "<a href=\"https://www.isbn-international.org/content/what-isbn\">ISBN number</a>"
     isbn = models.CharField('ISBN', max_length=13,
-                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
+                            help_text='13 Character {0}'.format(isbn_html_snippet))
+
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
 
     # ManyToManyField used because genre can contain many books. Books can cover
     # many genres.
     # Genre class has already been defined so we can specify the object above.
+
+    def display_genre(self):
+        """
+        Creates a string for the Genre. THis is requierd to display Genre in
+        admin.
+        """
+
+        return ', '.join([genre.name for genre in self.genre.all()[:3]])
 
     def __str__(self):
         return self.title
@@ -66,7 +76,9 @@ class BookInstance(models.Model):
     """
     Model representing a specific copy of a book (i.e. that it can be borrowed).
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular book across whole library")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text="Unique ID for this particular book across whole library")
+
     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
@@ -78,7 +90,8 @@ class BookInstance(models.Model):
         ('r', 'Reserved'),
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Book Availability')
+    status = models.CharField(max_length=1, choices=LOAN_STATUS,
+                              blank=True, default='m', help_text='Book Availability')
 
     class Meta:
         ordering = ["due_back"]
@@ -97,9 +110,9 @@ class Author(models.Model):
     date_of_death = models.DateField('Died', null=True, blank=True)
 
     class Meta:
-        ordering = ["last_name", "first_name"]
+        ordering = ["last_name"]
 
-    def get_absolute_urls(self):
+    def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
