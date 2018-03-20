@@ -1,0 +1,50 @@
+.header-login {
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.header-login ul {
+	list-style-type: none;
+	float: right;
+}
+
+.header-login ul li {
+	display: inline;
+	color: white;
+}
+
+.header-login ul li a {
+	text-decoration: none;
+	color: white;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.page-header {
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.sidebar-nav {
+	margin-top: 20px;
+	padding: 0;
+	list-style: none;
+}
+
+h1 a, h1, h2, h3, h4 { 
+	color: #FCA205;
+	font-family: 'Lobster';
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+a {
+	color: #FCA205;
+}
