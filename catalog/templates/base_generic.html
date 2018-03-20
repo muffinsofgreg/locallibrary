@@ -44,6 +44,10 @@
 	  <hr>
 	  <li><a href="{% url 'my-borrowed' %}">My Borrowed Books</a></li>
 	  {% endif %}
+	  {% if user.is_staff %}
+	  <hr>
+	  <li><a href="{% url 'all-borrowed' %}">All Borrowed Books</a></li>
+	  {% endif %}
       {% endblock %}
 
       </div>
