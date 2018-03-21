@@ -1,7 +1,10 @@
+# Standard imports for function and class based views
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
 from .models import Book, Author, BookInstance, Genre
+
+# For authentication and permissions
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 def index(request):
