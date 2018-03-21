@@ -8,7 +8,7 @@
   <ul>
     {% for book in bookinstance_list %}
     <li>
-	    <a href="{{ book.book.get_absolute_url }}">{{ book.book.title }}</a>  ({{ book.borrower.first_name }} {{ book.borrower.last_name }})
+	    <a href="{{ book.book.get_absolute_url }}">{{ book.book.title }}</a> ({{book.due_back}}) - {{ book.borrower.first_name }} {{ book.borrower.last_name }}
     </li>
     {% endfor %}
   </ul>
